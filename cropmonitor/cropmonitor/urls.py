@@ -15,9 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('planting/', include('planting.urls')),
-    path('api/', include('api.urls'))
-]
+    path('api/', include('api.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('training/', include('training.urls')),
+    path('rlinks/', include('importantlinks.urls')),
+    path('farm/', include('farm.urls')),
+]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

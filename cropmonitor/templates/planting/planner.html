@@ -1,0 +1,356 @@
+{% extends "../dashboard/common/main_d.html" %}
+
+
+{% block content %}
+{% load static%}
+
+
+ <!--start content-->
+ <main class="page-content">
+
+  <!--breadcrumb-->
+  <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Applications</div>
+    <div class="ps-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0 p-0">
+          <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Planting Planner</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="ms-auto">
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary">Settings</button>
+        <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Action</a>
+          <a class="dropdown-item" href="javascript:;">Another action</a>
+          <a class="dropdown-item" href="javascript:;">Something else here</a>
+          <div class="dropdown-divider"></div>	<a class="dropdown-item" href="javascript:;">Separated link</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end breadcrumb-->
+
+  <div class="row">
+    <div class="col-12 col-xl-3">
+      <div class="card">
+        
+        <p><br></p>
+
+        <h6 class="mb-0 text-uppercase">&nbsp;&nbsp;&nbsp;Select Options</h6>
+        <hr>
+
+        <div class="card">
+          <div class="card-body">
+           
+            <label for="validationServer04" class="form-label">County</label>
+              <select class="form-select" id="validationServer04" aria-describedby="validationServer04Feedback" required="">
+                <option selected="" disabled="" value="">Select County</option>
+                <option>Kisumu</option>
+              </select>
+              <div id="validationServer04Feedback" class="invalid-feedback">_</div>
+              <br>  
+
+            <label for="validationServer04" class="form-label">Sub-County</label>
+              <select class="form-select" id="validationServer04" aria-describedby="validationServer04Feedback" required="">
+                <option selected="" disabled="" value="">Select Sub-County</option>
+                <option>Nyakach</option>
+              </select>
+              <div id="validationServer04Feedback" class="invalid-feedback">_</div>
+              <br>  
+
+
+            <label for="validationServer04" class="form-label">Ward</label>
+              <select class="form-select" id="validationServer04" aria-describedby="validationServer04Feedback" required="">
+                <option selected="" disabled="" value="">Select Ward</option>
+                <option>Awasi</option>
+              </select>
+              <div id="validationServer04Feedback" class="invalid-feedback">_</div>
+              <br>  
+
+
+
+
+           
+              <label for="validationServer04" class="form-label">Value Chain</label>
+              <select class="form-select" id="validationServer04" aria-describedby="validationServer04Feedback" required="">
+                <option selected="" disabled="" value="">Select Value chain</option>
+                <option>Maize</option>
+              </select>
+              <div id="validationServer04Feedback" class="invalid-feedback">_</div>
+              <br>  
+
+              
+                <label for="validationServer04" class="form-label">Variety</label>
+                <select class="form-select" id="validationServer04" aria-describedby="validationServer04Feedback" required="">
+                  <option selected="" disabled="" value="">Select Variety</option>
+                  <option>...</option>
+                </select>
+                <div id="validationServer04Feedback" class="invalid-feedback">_</div>
+                <br>  
+
+                <div class="col-md-12">
+                  <label for="validationServer02" class="form-label">Farm size in acres</label>
+                  <input type="text" class="form-control" id="validationServer02"  required="" placeholder="0">
+                  <div class="valid-feedback">_</div>
+                </div>
+                <br>       
+
+            
+                <div class="mb-3">
+                  <label class="form-label">Planting/Emergence Date:</label>
+                  <input type="date" class="form-control">
+                </div>
+           
+          </div>
+        </div>
+
+
+
+
+
+
+
+       
+      </div>
+      
+    </div>
+    <div class="col-12 col-xl-9">
+
+      <h2 class="font-weight-light text-center text-muted py-3">Recommendations for Green grams - Ndengu Biashara</h2>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-4">
+       
+        
+         <div class="col">
+          <div class="card radius-15 border-0 border-start border-success border-3">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="">
+                  <p class="mb-1">Early Harvest Date</p>
+                  <h4 class="mb-0 text-success">22-10-2022</h4>
+                </div>
+                <div class="ms-auto widget-icon bg-success text-white">
+                  <i class="bi bi-bar-chart-fill"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+         </div>
+         <div class="col">
+          <div class="card radius-15 border-0 border-start border-success border-3">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="">
+                  <p class="mb-1">Late Harvest Date</p>
+                  <h4 class="mb-0 text-success">2-11-2022</h4>
+                </div>
+                <div class="ms-auto widget-icon bg-success text-white">
+                  <i class="bi bi-bar-chart-fill"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+         </div>
+         
+         
+         
+         
+        </div>
+
+
+
+
+
+
+      <div class="container py-2">
+        <h2 class="font-weight-light text-center text-muted py-3">Timeline</h2>
+        <!-- timeline item 1 -->
+        <div class="row">
+          <!-- timeline item 1 left dot -->
+          <div class="col-auto text-center flex-column d-none d-sm-flex">
+            <div class="row h-50">
+              <div class="col">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+            <h5 class="m-2">
+            <span class="badge rounded-pill bg-light border">&nbsp;</span>
+          </h5>
+            <div class="row h-50">
+              <div class="col border-end">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+          </div>
+          <!-- timeline item 1 event content -->
+          <div class="col py-2">
+            <div class="card radius-15">
+              <div class="card-body">
+                <div class="float-end text-muted">Mon, Jan 9th 2022</div>
+                <h4 class="card-title text-muted">Planting Date</h4>
+                <p class="card-text">Next 7 day prediction: Rainfall-30mm, Max Temperature-30<sup>o</sup>C </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/row-->
+        <!-- timeline item 2 -->
+        <div class="row">
+          <div class="col-auto text-center flex-column d-none d-sm-flex">
+            <div class="row h-50">
+              <div class="col border-end">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+            <h5 class="m-2">
+            <span class="badge rounded-pill bg-primary">&nbsp;</span>
+          </h5>
+            <div class="row h-50">
+              <div class="col border-end">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+          </div>
+          <div class="col py-2">
+            <div class="card border-primary shadow radius-15">
+              <div class="card-body">
+                <div class="float-end text-primary">Tue, Jan 10th 2019 8:30 AM</div>
+                <h4 class="card-title text-primary">Fertilizer Apllication</h4>
+                <p class="card-text">Apply 30Kg per Ha of Basal Fertilizer 14 day after emergecence</p>
+                <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-target="#t2_details" data-bs-toggle="collapse">Show Details ▼</button>
+                <div class="collapse border" id="t2_details">
+                  <div class="p-2 text-monospace">
+                    <div>Apply 30Kg per Ha of Basal Fertilizer 14 days after emergecence</div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/row-->
+        <!-- timeline item 3 -->
+        <div class="row">
+          <div class="col-auto text-center flex-column d-none d-sm-flex">
+            <div class="row h-50">
+              <div class="col border-end">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+            <h5 class="m-2">
+            <span class="badge rounded-pill bg-light border">&nbsp;</span>
+          </h5>
+            <div class="row h-50">
+              <div class="col border-end">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+          </div>
+          <div class="col py-2">
+            <div class="card radius-15">
+              <div class="card-body">
+                <div class="float-end text-muted">Wed, Jan 11th 2022 8:30 AM</div>
+                <h4 class="card-title">Weeding Date</h4>
+                <p>First weeding is done after 21 day from planting.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/row-->
+        <!-- timeline item 4 -->
+        <div class="row">
+          <div class="col-auto text-center flex-column d-none d-sm-flex">
+            <div class="row h-50">
+              <div class="col border-end">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+            <h5 class="m-2">
+            <span class="badge rounded-pill bg-light border">&nbsp;</span>
+          </h5>
+            <div class="row h-50">
+              <div class="col">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+          </div>
+          <div class="col py-2">
+            <div class="card radius-15">
+              <div class="card-body">
+                <div class="float-end text-muted">Thu, Jan 12th 2022 11:30 AM</div>
+                <h4 class="card-title">Site requirements</h4>
+                <p>...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-4">
+       
+           <div class="col">
+            <div class="card radius-15 border-0 border-start border-success border-3">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="">
+                    <p class="mb-1">Areas for optimal production</p>
+                    <h5 class="mb-0 text-success">1400 meters above sea level</h5>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+           </div>
+           <div class="col">
+            <div class="card radius-15 border-0 border-start border-success border-3">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="">
+                    <p class="mb-1">Maturity period</p>
+                    <h5 class="mb-0 text-success">130 - 180 days</h5>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+           </div>
+
+           <div class="col">
+            <div class="card radius-20 border-0 border-start border-tiffany border-3">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="">
+                    <p class="mb-1">Expected Yield</p>
+                    <h5 class="mb-0 text-tiffany">24800 - 30000 Kg</h5>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+           </div>
+           
+           
+           
+           
+          </div>
+  
+  
+        <!--/row-->
+      </div>
+
+
+
+
+
+
+      
+
+
+    </div>
+  </div>
+  <!--end row-->
+</main>
+ <!--end page main-->
+
+ 
+
+{% endblock %}

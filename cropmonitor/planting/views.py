@@ -12,9 +12,9 @@ import time
 from datetime import timedelta
 
 
-def index(request):
+def planner(request):
     
-    template = loader.get_template('planting/index.html')
+    template = loader.get_template('planting/planner.html')
     planners = PlantingDatePlanner.objects.all()
     cnow = datetime.datetime.now()
 
