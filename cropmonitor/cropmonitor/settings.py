@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,13 +44,20 @@ INSTALLED_APPS = [
     'api',
     'accounts',
     'training',
+    'farm',
     'importantlinks',
+    'import_export',
+    'django_filters',
+    'widget_tweaks',
+    'crispy_forms',
+    #'django.contrib.gis'
 
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware', # new language
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -81,12 +89,29 @@ WSGI_APPLICATION = 'cropmonitor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+}"""
+
+
+
+# Database
+# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+
+DATABASES = {
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql',
+       'NAME': 'cropmonitor2',
+       'USER': 'postgres',
+       'PASSWORD': 'postgres',
+       'HOST': 'localhost',
+       'PORT': '5432',
+   }
 }
+
 
 
 # Password validation
@@ -111,13 +136,23 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
+USE_L10N = True
+
 USE_TZ = True
+
+LANGUAGES = (
+    ('en', _('English')),
+    ('sw', _('Swahili')),
+)
+LOCALE_PATHS = [
+    BASE_DIR / 'locale/',
+]
 
 
 # Static files (CSS, JavaScript, Images)
@@ -139,3 +174,17 @@ MEDIA_URL="/media/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+#LOGIN_REDIRECT_URL ="login"
+
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST="smtp.gmail.com"
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+####################collage email id ##############
+EMAIL_HOST_USER="kevinkiambe@gmail.com"
+EMAIL_HOST_PASSWORD="xtremeGmail@1000"
+##################################################

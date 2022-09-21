@@ -1,0 +1,128 @@
+{% extends "../dashboard/common/main_d.html" %}
+
+
+{% block content %}
+{% load static%}
+
+
+    
+   <!--start content-->
+   <main class="page-content">
+
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+      <div class="breadcrumb-title pe-3">Tools</div>
+      <div class="ps-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0 p-0">
+            <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Remote Sensing</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="ms-auto">
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary">Settings</button>
+          <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Action</a>
+            <a class="dropdown-item" href="javascript:;">Another action</a>
+            <a class="dropdown-item" href="javascript:;">Something else here</a>
+            <div class="dropdown-divider"></div>	<a class="dropdown-item" href="javascript:;">Separated link</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--end breadcrumb-->
+
+    <div class="row">
+      <h6 class="mb-0 text-uppercase">NDVI    </h6>
+
+                <hr/>
+                
+                <div class="card">
+                  <div class="card-body">
+                    <div id="container" style="width: 100%;">
+                      <canvas id="population-chart" data-url="{% url 'ndvidata' %}"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <hr />
+
+                <p>Intepretation </p>
+
+                <div class="card">
+                  <div class="card-body">
+                    <div id="container" style="width: 100%;">
+                     <img src="{% static '/assets/images/weather/ndvi.jpg' }" alt="NDVI interpretation">
+                    </div>
+                  </div>
+                </div>
+      
+                
+
+    </div><!--end row-->
+
+
+    
+  
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+  
+      $(function () {
+  
+        var $populationChart = $("#population-chart");
+        $.ajax({
+          url: $populationChart.data("url"),
+          success: function (data) {
+  
+            var ctx = $populationChart[0].getContext("2d");
+  
+            new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: data.labels,
+                datasets: [{
+                  label: 'Date',
+                  backgroundColor: 'white',
+                  data: data.data,
+                  fill: false,
+                  borderColor: "#bae755",
+   borderDash: [5, 5],
+   backgroundColor: "#e755ba",
+   pointBackgroundColor: "#55bae7",
+   pointBorderColor: "#55bae7",
+   pointHoverBackgroundColor: "#55bae7",
+   pointHoverBorderColor: "#55bae7",
+                }]          
+              },
+              options: {
+                responsive: true,
+                legend: {
+                  position: 'right',
+                },
+                title: {
+                  display: true,
+                  text: 'NDVI'
+                }
+              }
+            });
+  
+          }
+        });
+  
+      });
+  
+    </script><div id="container" style="width: 75%;">
+      <canvas id="pie-chart"></canvas>
+    </div>
+  
+
+
+  </main>
+<!--end page main-->
+
+
+{% endblock %}

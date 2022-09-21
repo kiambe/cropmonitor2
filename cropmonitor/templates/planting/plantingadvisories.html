@@ -1,0 +1,415 @@
+{% extends "../dashboard/common/main_d.html" %}
+
+
+{% block content %}
+{% load static%}
+{% load widget_tweaks %}
+
+
+
+ <!--start content-->
+ <main class="page-content">
+
+  <!--breadcrumb-->
+  <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Tools</div>
+    <div class="ps-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0 p-0">
+          <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Planting Planner</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="ms-auto">
+      <div class="btn-group">
+        <a type="button" class="btn btn-success" href="{% url 'planner' %}">Back</a>
+        <button type="button" class="btn btn-success split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Action</a>
+          <a class="dropdown-item" href="javascript:;">Another action</a>
+          <a class="dropdown-item" href="javascript:;">Something else here</a>
+          <div class="dropdown-divider"></div>	<a class="dropdown-item" href="javascript:;">Separated link</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end breadcrumb-->
+
+  <div class="row">
+    <div class="col-12 col-xl-3">
+      <div class="card">
+        
+        <p><br></p>
+
+        <h6 class="mb-0 text-uppercase">&nbsp;&nbsp;&nbsp;Estimator</h6>
+        <hr>
+       
+
+        <div class="card">
+          <div class="card-body">     
+            
+          
+            
+                <div class="col-md-12">
+                  <label for="farmsize" class="form-label">Farm size in acres</label>
+                  <input type="number" class="form-control" name="farmsize" id="farmsize"  required="" placeholder="0">
+                  <div class="valid-feedback">_</div>
+                </div>
+                <br>       
+
+            
+                <div class="col-md-12">
+                  <label class="form-label">Planting Date:</label>
+                  <input type="date" class="form-control" id="pedate" name="pedate">
+                </div>
+                <br>  
+                <div class="col-md-12">
+                <button type="button" value="calculate" class="btn btn-success px-5 radius-30" onclick="myFunction()">Get Advisory</button>
+
+              </div>
+                <br>
+
+
+
+                
+           
+          </div>
+        </div>
+     
+
+
+
+
+
+
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="mb-0 text-primary font-weight-bold">Estimations <span class="float-end text-secondary"></span></h5>
+          
+
+
+
+
+
+          <hr>
+           
+          <div class="mb-0">
+            <div class="d-flex align-items-center gap-2">
+               <div class="fs-6 text-secondary"><i class="bi bi-file-post-fill"></i></div>
+               <div>Min Expected Yield (kg)</div>
+               <div class="ms-auto"><label id="rminyield">0</label></div>
+            </div>
+            <div class="progress mt-2" style="height: 4px;">
+              <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+
+
+          <div class="mb-0">
+            <div class="d-flex align-items-center gap-2">
+               <div class="fs-6 text-secondary"><i class="bi bi-file-post-fill"></i></div>
+               <div>Max Expected Yield (kg)</div>
+               <div class="ms-auto"><label id="rmaxyield">0</label></div>
+            </div>
+            <div class="progress mt-2" style="height: 4px;">
+              <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+
+
+          <div class="mb-0">
+            <div class="d-flex align-items-center gap-2">
+               <div class="fs-6 text-secondary"><i class="bi bi-file-post-fill"></i></div>
+               <div>Early Harvest Date</div>
+               <div class="ms-auto"><label id="rehdate1">0</label></div>
+               <p id="rehdate">0</p> </p>
+            </div>
+            <div class="progress mt-2" style="height: 4px;">
+              <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+
+
+          <div class="mb-0">
+            <div class="d-flex align-items-center gap-2">
+               <div class="fs-6 text-secondary"><i class="bi bi-file-post-fill"></i></div>
+               <div>Late Harvest Date</div>
+               <div class="ms-auto"><label id="rlhdate">0</label></div>
+            </div>
+            <div class="progress mt-2" style="height: 4px;">
+              <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+
+
+
+
+
+    
+
+        </div>
+      </div>
+
+
+
+     
+
+
+
+
+
+
+       
+      </div>
+      
+    </div>
+    <div class="col-12 col-xl-9">
+      {% for pl in myFilter.qs %}
+
+      <h2 class="font-weight-light text-center text-muted py-3">Recommendations for {{pl.valuechain}} - {{pl.release_name}}</h2>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-4">
+        <div class="col">
+          <div class="card radius-15 border-0 border-start border-success border-3">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="">
+                  <p class="mb-1">Variety</p>
+                  <h5 class="mb-0 text-success">{{pl.vc_variety}}</h5>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+         </div>
+         
+        
+         <div class="col">
+          <div class="card radius-15 border-0 border-start border-success border-3">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="">
+                  <p class="mb-1">Maturity Period</p>
+                  <h5 class="mb-0 text-success">{{pl.min_maturity_period}} - {{pl.max_maturity_period}}  Days</h5>
+
+                  <input type="hidden" id="ehdate" value={{pl.min_maturity_period}} name="ehdate">
+
+                  <input type="hidden" id="lhdate" value={{pl.max_maturity_period}} name="lhdate">
+                </div>
+                              </div>
+            </div>
+          </div>
+         </div>
+
+         <div class="col">
+          <div class="card radius-15 border-0 border-start border-success border-3">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="">
+                  <p class="mb-1">Yield</p>
+                  <h5 class="mb-0 text-success">{{pl.min_expected_yield}} - {{pl.max_expected_yield}}  t/ha</h5>
+
+                  <input type="hidden" id="minyield" value={{pl.min_expected_yield}} name="minyield">
+                  
+                  <input type="hidden" id="maxyield" value={{pl.max_expected_yield}} name="maxyield">
+                </div>
+               </div>
+            </div>
+          </div>
+         </div>
+
+         <div class="col">
+          <div class="card radius-15 border-0 border-start border-success border-3">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="">
+                  <p class="mb-1">Areas for optimal production</p>
+                  <h5 class="mb-0 text-success">{{pl.areas_for_optimal_production}}</h5>
+                </div>
+               </div>
+            </div>
+          </div>
+         </div>
+         
+         
+
+         
+
+
+    
+         
+         
+        </div>
+
+
+
+
+
+
+      <div class="container py-2">
+       
+        <div class="row">
+          <!-- timeline item 1 left dot -->
+          <div class="col-auto text-center flex-column d-none d-sm-flex">
+            <div class="row h-50">
+              <div class="col">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+            <h5 class="m-2">
+            <span class="badge rounded-pill bg-light border">&nbsp;</span>
+          </h5>
+            <div class="row h-50">
+              <div class="col border-end">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+          </div>
+          <!-- timeline item 1 event content -->
+          <div class="col py-2">
+            <div class="card radius-15">
+              <div class="card-body">
+                <div class="float-end text-muted">_</div>
+                <h4 class="card-title text-muted">Good Agricultural Practices</h4>
+                <p class="card-text">Visit  </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/row-->
+        <!-- timeline item 2 -->
+        <div class="row">
+          <div class="col-auto text-center flex-column d-none d-sm-flex">
+            <div class="row h-50">
+              <div class="col border-end">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+            <h5 class="m-2">
+            <span class="badge rounded-pill bg-primary">&nbsp;</span>
+          </h5>
+            <div class="row h-50">
+              <div class="col border-end">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+          </div>
+          <div class="col py-2">
+            <div class="card border-primary shadow radius-15">
+              <div class="card-body">
+                <div class="float-end text-primary">_</div>
+                <h4 class="card-title text-primary">Fertilizer Apllication</h4>
+                <p class="card-text">{{pl.ferlizer_application_recommendation}}</p>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/row-->
+        <!-- timeline item 3 -->
+        <div class="row">
+          <div class="col-auto text-center flex-column d-none d-sm-flex">
+            <div class="row h-50">
+              <div class="col border-end">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+            <h5 class="m-2">
+            <span class="badge rounded-pill bg-light border">&nbsp;</span>
+          </h5>
+            <div class="row h-50">
+              <div class="col border-end">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+          </div>
+          <div class="col py-2">
+            <div class="card radius-15">
+              <div class="card-body">
+                <div class="float-end text-muted">_</div>
+                <h4 class="card-title">Weeding</h4>
+                <p>{{pl.first_weeding_after_days}} </p><br>
+                <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-target="#t2_details" data-bs-toggle="collapse">Second weeding ▼</button>
+                <div class="collapse border" id="t2_details">
+                  <div class="p-2 text-monospace">
+                    <div>{{pl.second_weeding_after_days}} </div>
+                    
+                    
+                  </div>
+                </div>
+                
+                <p></p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/row-->
+   
+      
+
+
+  
+  
+        <!--/row-->
+      </div>
+
+
+
+
+
+
+      
+
+
+    </div>
+
+
+    {% empty %}
+    <h2 class="font-weight-light text-center text-muted py-3"> No data for selected region / value chain / variety </h2>
+
+            
+          {% endfor %}
+  </div>
+  <!--end row-->
+</main>
+ <!--end page main-->
+   
+ <script type="text/javascript">  
+  function myFunction(){  
+  var size=document.getElementById("farmsize").value; 
+  var minyield=document.getElementById("minyield").value; 
+  var maxyield=document.getElementById("maxyield").value; 
+  var pedate=document.getElementById("pedate").value; 
+  var ehdate=document.getElementById("ehdate").value; 
+  var lhdate=document.getElementById("lhdate").value; 
+
+  document.getElementById("rminyield").innerHTML = (size * minyield * 404.686).toFixed(2);
+  document.getElementById("rmaxyield").innerHTML = (size * maxyield * 404.686).toFixed(2);
+  //document.getElementById("rminyield").innerHTML = pedate;
+
+
+
+
+  const userEnteredString  = pedate; 
+  const dateFromUserEnteredString = new Date(userEnteredString);
+  const eharvestdate = dateFromUserEnteredString(myDate, ehdate);
+  const lharvestdate = dateFromUserEnteredString(myDate, lhdate);
+  
+  //const dt = eharvestdate.setDate(eharvestdate.getDate() + ehdate);
+
+
+  
+  document.getElementById("rehdate").innerHTML = pedate;
+  document.getElementById("rlhdate").innerHTML = pedate ;
+
+
+  
+ 
+
+
+  
+  }  
+  </script>  
+
+
+
+
+{% endblock %}

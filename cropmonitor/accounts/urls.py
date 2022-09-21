@@ -18,10 +18,27 @@ Including another URLconf
 from django.urls import path, include
 from . import views
 
+
+
+
+
 urlpatterns = [
     path('', views.login, name="login"),
+   
     path('register', views.register, name="register"),
     path('home', views.home, name="home"),    
+    #path('myprofile', views.myprofile, name="myprofile"),  
     path('contactus', views.contactus, name="contactus"),
     path('faq', views.faq, name="faq"),
+    path('logout', views.logout, name="logout"),
+    path('myprofile/', views.ProfileView.as_view(), name='myprofile'),
+
+    
+    #path('api/', include(router.urls)),
+    #path('api-token-auth/', views.obtain_auth_token, name='api-tokn-auth'),
+
+
+
+
+
 ]

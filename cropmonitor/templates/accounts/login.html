@@ -2,6 +2,7 @@
 
 
 {% block content %}
+{% load i18n %}
 {% load static%}
  <!--start content-->
  <main class="authentication-content">
@@ -10,57 +11,62 @@
         <div class="card rounded-0 overflow-hidden shadow-none border mb-5 mb-lg-0">
           <div class="row g-0">
             <div class="col-12 order-1 col-xl-8 d-flex align-items-center justify-content-center border-end">
-              <img src="{% static 'assets/images/error/auth-img-7.png' %}" class="img-fluid" alt="">
+              <img src="{% static 'assets/images/utils/app_landing_image-01.png' %}" height="50%" width="100%" class="img-fluid" alt="">
             </div>
             <div class="col-12 col-xl-4 order-xl-2">
               <div class="card-body p-4 p-sm-5">
-                <h5 class="card-title">Log In</h5>
-                <p class="card-text mb-4">Sign in to your account</p>
-                 <form class="form-body">
+                <h1 class="card-title"> {% trans "Login" %}</h1>
+                <hr>
+                {% if error %}
+                <p class="card-text mb-4" style="color: red;">  {{ error }}  <br><br></p>
+                {% endif %}
+
+                 <form class="form-body" method = "POST" action="{% url 'login' %}">
+                  {% csrf_token %}
                   
                     <div class="row g-3">
                       <div class="col-12">
-                        <label for="inputEmailAddress" class="form-label">Email Address/Telephone Number</label>
+                        <label for="inputEmailAddress" class="form-label">
+
+                          {% trans "NationalID" %}
+                          
+                          </label>
                         <div class="ms-auto position-relative">
                           <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-envelope-fill"></i></div>
-                          <input type="email" class="form-control radius-30 ps-5" id="inputEmailAddress" placeholder="Email">
+                          <input type="text" class="form-control radius-30 ps-5" name="username" id="username" placeholder="12345678" required="">
                         </div>
                       </div>
                       <div class="col-12">
-                        <label for="inputChoosePassword" class="form-label">Enter Password</label>
+                        <label for="inputChoosePassword" class="form-label">
+                          
+                          {% trans "Password" %}
+                        
+                        </label>
                         <div class="ms-auto position-relative">
                           <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-lock-fill"></i></div>
-                          <input type="password" class="form-control radius-30 ps-5" id="inputChoosePassword" placeholder="Password">
+                          <input type="password" class="form-control radius-30 ps-5" id="password" name="password" placeholder="Password"  required="">
                         </div>
                       </div>
-                      <div class="col-12">
-                        <div class="form-check form-switch">
-                          <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-                          <label class="form-check-label" for="flexSwitchCheckChecked">Remember Me</label>
-                        </div>
+                     
+
+                      <div class="col-12 text-center">
+                        <p class="mb-0"> <a href="https://www.kalro.org/" target="_blank"> {% trans "Terms" %} </a></p>
                       </div>
                       
                       <div class="col-12">
                         <div class="d-grid">
-                          <button type="submit" class="btn btn-success radius-30">Sign In</button>
+                          <input class ="btn btn-success radius-30" type="submit" value= " {% trans 'Login' %}" />
+                          
                         </div>
                       </div>
-                      <div class="col-12 text-end">	<a href="authentication-forgot-password.html">Forgot Password ?</a>
-                      </div>
-                      <div class="col-12">
-                        <div class="login-separater text-center"> <span>OR SIGN IN WITH EMAIL</span>
-                          <hr>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <div class="d-flex align-items-center gap-3 justify-content-center">
-                          <button type="button" class="btn btn-white text-danger"><i class="bi bi-google me-0"></i></button>
-                          <button type="button" class="btn btn-white text-primary"><i class="bi bi-linkedin me-0"></i></button>
-                          <button type="button" class="btn btn-white text-info"><i class="bi bi-facebook me-0"></i></button>
-                        </div>
-                      </div>
+
+                      
+                      <hr>
+
+                     
+                     
                       <div class="col-12 text-center">
-                        <p class="mb-0">Don't have an account yet? <a href="authentication-signup-with-header-footer.html">Sign up here</a></p>
+                        <p class="mb-0"> <a href="{% url 'register' %}"> {% trans "Create an account" %}</a></p>
                       </div>
                     </div>
                 </form>

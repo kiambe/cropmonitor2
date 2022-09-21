@@ -1,0 +1,466 @@
+{% extends "../dashboard/common/main_d.html" %}
+
+
+{% block content %}
+{% load static%}
+{% load widget_tweaks %}
+
+ <!--start content-->
+ <main class="page-content">
+
+  <!--breadcrumb-->
+  <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+    <div class="breadcrumb-title pe-3">Applications</div>
+    <div class="ps-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0 p-0">
+          <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Planting Planner</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="ms-auto">
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary">Settings</button>
+        <button type="button" class="btn btn-primary split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Action</a>
+          <a class="dropdown-item" href="javascript:;">Another action</a>
+          <a class="dropdown-item" href="javascript:;">Something else here</a>
+          <div class="dropdown-divider"></div>	<a class="dropdown-item" href="javascript:;">Separated link</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end breadcrumb-->
+
+  <div class="row">
+    <div class="col-12 col-xl-3">
+      <div class="card">
+        
+        <p><br></p>
+
+        <h6 class="mb-0 text-uppercase">&nbsp;&nbsp;&nbsp;Select Options</h6>
+        <hr>
+        <div class="card">
+          <div class="card-body">
+
+        <form method="get" action="{% url 'getplans' %}">
+               
+                 
+                  
+                    <div class="form-group col-sm-4 col-md-3">
+                      <label for="validationServer04" class="form-label"> {{ myFilter.form.valuechain.label_tag }}</label>
+                      {% render_field myFilter.form.valuechain class="form-control" %}
+                    </div>
+                    <div class="form-group col-sm-4 col-md-3">
+                      {{ myFilter.form.vc_variety.label_tag }}
+                      {% render_field myFilter.form.vc_variety class="form-control" %}
+                    </div>
+                    
+                      <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-2">Get Advisory</button>
+                      </div>
+                    
+                 
+                  
+            
+              </form>
+
+            </div>
+                  
+          </div>
+
+
+
+
+
+
+
+
+
+        <form name="planner" method="get">
+
+        <div class="card">
+          <div class="card-body">
+           
+            <label for="validationServer04" class="form-label">County</label>
+              <select class="form-select" id="validationServer04" aria-describedby="validationServer04Feedback" required="">
+                <option selected="" disabled="" value="">Select County</option>
+                {% for c in counties %}
+                
+                <option value={{c.id}}>{{c.name}} </option>
+                {% endfor %}
+
+                
+
+              </select>
+              <div id="validationServer04Feedback" class="invalid-feedback">_</div>
+              <br>  
+
+            <label for="validationServer04" class="form-label">Sub-County</label>
+              <select class="form-select" id="validationServer04" aria-describedby="validationServer04Feedback" required="">
+                <option selected="" disabled="" value="">Select Sub-County</option>
+                {% for s in subcounties %}
+                
+                <option value={{s.id}}>{{s.name}} </option>
+                {% endfor %}
+              </select>
+              <div id="validationServer04Feedback" class="invalid-feedback">_</div>
+              <br>  
+
+
+            <label for="validationServer04" class="form-label">Ward</label>
+              <select class="form-select" id="validationServer04" aria-describedby="validationServer04Feedback" required="">
+                <option selected="" disabled="" value="">Select Ward</option>
+                {% for w in wards %}
+                
+                <option value={{w.id}}>{{w.name}}</option>
+                {% endfor %}
+              </select>
+              <div id="validationServer04Feedback" class="invalid-feedback">_</div>
+              <br>  
+
+
+
+
+           
+              <label for="validationServer04" class="form-label">Value Chain</label>
+              <select class="form-select" id="validationServer04" aria-describedby="validationServer04Feedback" required="">
+                <option selected="" disabled="" value="">Select Value chain</option>
+                {% for v in vc %}
+                
+                <option value={{v.id}}>{{v.name}}</option>
+                {% endfor %}
+              </select>
+              <div id="validationServer04Feedback" class="invalid-feedback">_</div>
+              <br>  
+               <label for="validationServer04" class="form-label">Variety</label>
+                <select class="form-select" id="validationServer04" aria-describedby="validationServer04Feedback" required="">
+                  <option selected="" disabled="" value="">Select Variety</option>
+                  {% for vr in planners %}
+                
+                <option>{% ifchanged %} {{vr.vc_variety}}  {% endifchanged %} </option>
+                {% endfor %}
+              </select>
+                </select>
+                <div id="validationServer04Feedback" class="invalid-feedback">_</div>
+                <br>  
+
+                <div class="col-md-12">
+                  <label for="validationServer02" class="form-label">Farm size in acres</label>
+                  <input type="text" class="form-control" id="validationServer02"  required="" placeholder="0">
+                  <div class="valid-feedback">_</div>
+                </div>
+                <br>       
+
+            
+                <div class="col-md-12">
+                  <label class="form-label">Planting/Emergence Date:</label>
+                  <input type="date" class="form-control">
+                </div>
+                <br>  
+                <div class="col-md-12">
+                <button type="submit" class="btn btn-success px-5 radius-30">Get Advisory</button>
+              </div>
+                <br>
+           
+          </div>
+        </div>
+      </form>
+
+
+
+
+
+
+
+       
+      </div>
+      
+    </div>
+    <div class="col-12 col-xl-9">
+
+      <h2 class="font-weight-light text-center text-muted py-3">Recommendations for Green grams - Ndengu Biashara</h2>
+
+
+
+
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Value Chain</th>
+            <th>Variety</th>
+            <th>Special Attributes</th>
+            <th>Maturity Period (Days)</th>
+            <th>Weeding</th>
+            <th>Fertilizer Application</th>
+            <th>Yield (t/ha)</th>
+            <th>Production</th>
+            
+            <th>Early Harvest Date</th>
+            <th>Late Harvest Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for pl in myFilter.qs %}
+            <tr>
+              <td>{{pl.valuechain}}</td>
+              <td>{{pl.vc_variety}}</td>
+              <td>{{pl.special_attributes}}</td>
+              <td>{{pl.min_maturity_period}} - {{pl.max_maturity_period}} Days </td>
+              <td>{{pl.first_weeding_after_days}} days after planting</td>
+              <td>{{pl.ferlizer_application_recommendation}}</td>
+              <td>{{pl.min_expected_yield}} - {{pl.max_expected_yield}}</td>
+              <td>{{pl.min_expected_yield}} </td>
+              
+              <td>{{cnow}}</td>
+              
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="5">No data</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+
+
+
+
+
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-4">
+       
+        
+         <div class="col">
+          <div class="card radius-15 border-0 border-start border-success border-3">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="">
+                  <p class="mb-1">Early Harvest Date</p>
+                  <h4 class="mb-0 text-success">22-10-2022</h4>
+                </div>
+                <div class="ms-auto widget-icon bg-success text-white">
+                  <i class="bi bi-bar-chart-fill"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+         </div>
+         <div class="col">
+          <div class="card radius-15 border-0 border-start border-success border-3">
+            <div class="card-body">
+              <div class="d-flex align-items-center">
+                <div class="">
+                  <p class="mb-1">Late Harvest Date</p>
+                  <h4 class="mb-0 text-success">2-11-2022</h4>
+                </div>
+                <div class="ms-auto widget-icon bg-success text-white">
+                  <i class="bi bi-bar-chart-fill"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+         </div>
+         
+         
+         
+         
+        </div>
+
+
+
+
+
+
+      <div class="container py-2">
+        <h2 class="font-weight-light text-center text-muted py-3">Timeline</h2>
+        <!-- timeline item 1 -->
+        <div class="row">
+          <!-- timeline item 1 left dot -->
+          <div class="col-auto text-center flex-column d-none d-sm-flex">
+            <div class="row h-50">
+              <div class="col">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+            <h5 class="m-2">
+            <span class="badge rounded-pill bg-light border">&nbsp;</span>
+          </h5>
+            <div class="row h-50">
+              <div class="col border-end">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+          </div>
+          <!-- timeline item 1 event content -->
+          <div class="col py-2">
+            <div class="card radius-15">
+              <div class="card-body">
+                <div class="float-end text-muted">Mon, Jan 9th 2022</div>
+                <h4 class="card-title text-muted">Planting Date</h4>
+                <p class="card-text">Next 7 day prediction: Rainfall-30mm, Max Temperature-30<sup>o</sup>C </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/row-->
+        <!-- timeline item 2 -->
+        <div class="row">
+          <div class="col-auto text-center flex-column d-none d-sm-flex">
+            <div class="row h-50">
+              <div class="col border-end">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+            <h5 class="m-2">
+            <span class="badge rounded-pill bg-primary">&nbsp;</span>
+          </h5>
+            <div class="row h-50">
+              <div class="col border-end">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+          </div>
+          <div class="col py-2">
+            <div class="card border-primary shadow radius-15">
+              <div class="card-body">
+                <div class="float-end text-primary">Tue, Jan 10th 2019 8:30 AM</div>
+                <h4 class="card-title text-primary">Fertilizer Apllication</h4>
+                <p class="card-text">Apply 30Kg per Ha of Basal Fertilizer 14 day after emergecence</p>
+                <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-target="#t2_details" data-bs-toggle="collapse">Show Details ▼</button>
+                <div class="collapse border" id="t2_details">
+                  <div class="p-2 text-monospace">
+                    <div>Apply 30Kg per Ha of Basal Fertilizer 14 days after emergecence</div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/row-->
+        <!-- timeline item 3 -->
+        <div class="row">
+          <div class="col-auto text-center flex-column d-none d-sm-flex">
+            <div class="row h-50">
+              <div class="col border-end">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+            <h5 class="m-2">
+            <span class="badge rounded-pill bg-light border">&nbsp;</span>
+          </h5>
+            <div class="row h-50">
+              <div class="col border-end">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+          </div>
+          <div class="col py-2">
+            <div class="card radius-15">
+              <div class="card-body">
+                <div class="float-end text-muted">Wed, Jan 11th 2022 8:30 AM</div>
+                <h4 class="card-title">Weeding Date</h4>
+                <p>First weeding is done after 21 day from planting.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/row-->
+        <!-- timeline item 4 -->
+        <div class="row">
+          <div class="col-auto text-center flex-column d-none d-sm-flex">
+            <div class="row h-50">
+              <div class="col border-end">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+            <h5 class="m-2">
+            <span class="badge rounded-pill bg-light border">&nbsp;</span>
+          </h5>
+            <div class="row h-50">
+              <div class="col">&nbsp;</div>
+              <div class="col">&nbsp;</div>
+            </div>
+          </div>
+          <div class="col py-2">
+            <div class="card radius-15">
+              <div class="card-body">
+                <div class="float-end text-muted">Thu, Jan 12th 2022 11:30 AM</div>
+                <h4 class="card-title">Site requirements</h4>
+                <p>...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-4">
+       
+           <div class="col">
+            <div class="card radius-15 border-0 border-start border-success border-3">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="">
+                    <p class="mb-1">Areas for optimal production</p>
+                    <h5 class="mb-0 text-success">1400 meters above sea level</h5>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+           </div>
+           <div class="col">
+            <div class="card radius-15 border-0 border-start border-success border-3">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="">
+                    <p class="mb-1">Maturity period</p>
+                    <h5 class="mb-0 text-success">130 - 180 days</h5>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+           </div>
+
+           <div class="col">
+            <div class="card radius-20 border-0 border-start border-tiffany border-3">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="">
+                    <p class="mb-1">Expected Yield</p>
+                    <h5 class="mb-0 text-tiffany">24800 - 30000 Kg</h5>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+           </div>
+           
+           
+           
+           
+          </div>
+  
+  
+        <!--/row-->
+      </div>
+
+
+
+
+
+
+      
+
+
+    </div>
+  </div>
+  <!--end row-->
+</main>
+ <!--end page main-->
+
+ 
+
+{% endblock %}

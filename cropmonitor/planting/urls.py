@@ -18,7 +18,12 @@ from django.urls import path, include
 
 from . import views
 
+from .filters import PlannerFilter
+from django_filters.views import FilterView
+from .models import PlantingDatePlannerC
+
 urlpatterns = [
     
     path('', views.planner, name="planner"),
+    path('getplans', views.plantingadvisories, name="getplans"),
 ]

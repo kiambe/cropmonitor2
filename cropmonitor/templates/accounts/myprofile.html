@@ -1,0 +1,231 @@
+{% extends "./../dashboard/common/main_d.html" %}
+
+
+{% block content %}
+{% load i18n %}
+{% load static%}
+{% load crispy_forms_tags %} 
+ <!--start content-->
+ <main class="page-content">
+
+  <!--breadcrumb-->
+  <div class="page-breadcrumb d-none d-sm-flex align-items-center">
+    <div class="breadcrumb-title pe-3 text-white">Account</div>
+    <div class="ps-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0 p-0">
+          <li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt text-white"></i></a>
+          </li>
+          <li class="breadcrumb-item active text-white" aria-current="page">My Personal Profile</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="ms-auto">
+      <div class="btn-group">
+        <button type="button" class="btn btn-light">Actions</button>
+        <button type="button" class="btn btn-light split-bg-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">TMy Farms</span>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="javascript:;">Suitability</a>
+          <a class="dropdown-item" href="javascript:;">Planting Planner</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end breadcrumb-->
+ 
+  <div class="profile-cover bg-dark"></div>
+
+  <div class="row">
+    <div class="col-12 col-lg-8">
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h5 class="mb-0">My Account</h5>
+            <hr>
+
+
+
+            <div class="card shadow-none border">
+              <div class="card-header">
+                <h6 class="mb-0">FARMER'S INFORMATION</h6>
+              </div>
+              <div class="card-body">
+
+
+
+
+
+
+
+                <form action="{% url 'myprofile' %}" method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="row">
+                      <div class="col-12 col-xl-12">
+                          <div class="card card-body bg-white border-light shadow-sm mb-4">
+                              <h2 class="h5 mb-4">Profile information</h2>
+                              <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div>
+                                        <label for="first_name">First Name</label>
+                                        <input name="first_name" class="form-control" id="first_name" type="text"
+                                               placeholder="Enter your first name" value="{{ profile.user.first_name }}"
+                                               required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div>
+                                        <label for="last_name">Last Name</label>
+                                        <input name="last_name" class="form-control" id="last_name" type="text"
+                                               placeholder="Also your last name" value="{{ profile.user.last_name }}"
+                                               required>
+                                    </div>
+                                </div>
+                            </div>
+                             
+                             
+                              <div class="row">
+                                  <div class="col-md-6 mb-3">
+                                      <div class="form-group">
+                                          <label for="email">Email</label>
+                                          <input name="email" class="form-control" id="email" type="email"
+                                                 placeholder="name@email.com" value="{{ profile.user.email }}" >
+                                      </div>
+                                  </div>
+
+                                  <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="gender">Gender</label>
+                                        <input name="gender" class="form-control" id="gender" type="text"
+                                               placeholder="Female" value="{{ profile.gender }}" required>
+                                    </div>
+                                </div>
+                                  
+
+                                </div>
+                                <div class="row">
+                                  
+                                  <div class="col-md-6 mb-3">
+                                      <div class="form-group">
+                                          <label for="telephone">Telephone</label>
+                                          <input name="telephone" class="form-control" id="telephone" type="number"
+                                                 placeholder="+12-345 678 910" value="0{{ profile.telephone }}" required>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label for="mobile">Mobile Number</label>
+                                        <input name="mobile" class="form-control" id="mobile" type="number"
+                                               placeholder="0712345678" value="0{{ profile.mobile }}" >
+                                    </div>
+                                </div>
+                              </div>
+                              
+                              
+                          </div>
+                      </div>
+                     
+                  </div>
+                  
+                  
+                
+              </div>
+            </div>
+            <div class="card shadow-none border">
+              <div class="card-header">
+                <h6 class="mb-0">ADDRESS INFORMATION</h6>
+              </div>
+              <div class="card-body">
+                
+                <div class="row">
+                   <div class="col-6  mb-3">
+                      <label class="form-label">County</label>
+                      <input type="text" class="form-control" name="county" value="{{ profile.county }}" placeholder="Kisumu">
+                   </div>
+                   <div class="col-6 mb-3">
+                    <label class="form-label">Sub County</label>
+                    <input type="text" class="form-control" name="subcounty" value="{{ profile.subcounty }}" placeholder="Awasi">
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-6  mb-3">
+                      <label class="form-label">Ward</label>
+                      <input type="text" class="form-control" name="ward" value="{{ profile.ward }}" placeholder="Awasi/Onjiko">
+                  </div>
+                  
+                </div>
+                <div class="row">
+                  <div class="col-6  mb-3">
+                    <label class="form-label">Latitude</label>
+                    <input type="text" class="form-control" name="lat" value="{{ profile.lat }}" placeholder="0.2333">
+                </div>
+                <div class="col-6  mb-3">
+                  <label class="form-label">Longitude</label>
+                  <input type="text" class="form-control" name="lon" value="{{ profile.lon }}" placeholder="37.3883">
+              </div>
+            </div>
+              <div class="text-start">
+                <input type="submit" name="submit" value="Update" class="btn btn-primary px-4">
+              </div>
+                  
+                </form>
+              </div>
+            </div>
+            
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-4">
+      <div class="card shadow-sm border-0 overflow-hidden">
+        <div class="card-body">
+            <div class="profile-avatar text-center">
+              <img src="{% static 'assets/images/utils/phenology_icon.png' %}" class="rounded-circle shadow" width="120" height="120" alt="">
+            </div>
+            <div class="d-flex align-items-center justify-content-around mt-5 gap-2">
+                <div class="text-center">
+                  <h4 class="mb-0">4</h4>
+                  <p class="mb-0 text-secondary">Farms</p>
+                </div>
+                <div class="text-center">
+                  <h4 class="mb-0">5</h4>
+                  <p class="mb-0 text-secondary">Value Chains</p>
+                </div>
+                
+            </div>
+            <div class="text-center mt-4">
+              <h4 class="mb-1">
+
+                {% if user.is_authenticated %}
+     {{ user.get_full_name }}
+{% else %}
+    Please log in!
+{% endif %}
+                
+
+
+
+
+
+
+</h4>
+              <p class="mb-0 text-secondary">{{ profile.county }}</p>
+              <div class="mt-4"></div>
+              <h6 class="mb-1">Farmer</h6>
+              <p class="mb-0 text-secondary">{% if user.is_authenticated %}
+                {{ user.get_username }}
+           {% else %}
+               Please log in!
+           {% endif %}</p>
+            </div>
+            <hr>
+           
+        </div>
+       
+      </div>
+    </div>
+  </div><!--end row-->
+
+</main>
+<!--end page main-->
+
+{% endblock %}
+
+
