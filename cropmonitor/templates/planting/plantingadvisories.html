@@ -7,6 +7,49 @@
 
 
 
+
+
+
+
+
+
+      
+<script type="text/javascript">  
+  function myFunction(){  
+  var size=document.getElementById("farmsize").value; 
+  var minyield=document.getElementById("minyield").value; 
+  var maxyield=document.getElementById("maxyield").value; 
+  var planttingdate=document.getElementById("planttingdate").value; 
+
+  var ehdate=document.getElementById("ehdate").value; 
+
+  document.getElementById("rminyield").innerHTML = (size * minyield * 404.686).toFixed(0);
+  document.getElementById("rmaxyield").innerHTML = (size * maxyield * 404.686).toFixed(0);
+
+let eduration = moment.duration({'days' : ehdate});
+
+
+let startTime = moment(planttingdate, 'YYYY-MM-DD');
+let eharvest = startTime.add(eduration);
+
+document.getElementById("earlyharvest").innerHTML = eharvest.format("dddd, Do MMMM YYYY");
+
+  
+  }  
+  </script> 
+
+
+
+
+
+
+
+
+
+
+
+
+
  <!--start content-->
  <main class="page-content">
 
@@ -43,7 +86,7 @@
         
         <p><br></p>
 
-        <h6 class="mb-0 text-uppercase">&nbsp;&nbsp;&nbsp;Estimator</h6>
+        <h6 class="mb-0 text-uppercase">&nbsp;&nbsp;&nbsp;Yield Estimator</h6>
         <hr>
        
 
@@ -62,7 +105,7 @@
             
                 <div class="col-md-12">
                   <label class="form-label">Planting Date:</label>
-                  <input type="date" class="form-control" id="pedate" name="pedate">
+                  <input type="date" class="form-control" id="planttingdate" name="planttingdate">
                 </div>
                 <br>  
                 <div class="col-md-12">
@@ -87,7 +130,7 @@
 
       <div class="card">
         <div class="card-body">
-          <h5 class="mb-0 text-primary font-weight-bold">Estimations <span class="float-end text-secondary"></span></h5>
+          <h5 class="mb-0 text-primary font-weight-bold">Results <span class="float-end text-secondary"></span></h5>
           
 
 
@@ -99,76 +142,74 @@
           <div class="mb-0">
             <div class="d-flex align-items-center gap-2">
                <div class="fs-6 text-secondary"><i class="bi bi-file-post-fill"></i></div>
-               <div>Min Expected Yield (kg)</div>
-               <div class="ms-auto"><label id="rminyield">0</label></div>
+               <div>Harvest</div>
+               <div class="ms-auto">
+                <h5 class="mb-0 text-success">
+                <label id="rminyield">_</label> - <label id="rmaxyield">_</label> kg
+              </h5>
+              </div>
             </div>
             <div class="progress mt-2" style="height: 4px;">
               <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
           </div>
+
+
 
 
           <div class="mb-0">
             <div class="d-flex align-items-center gap-2">
                <div class="fs-6 text-secondary"><i class="bi bi-file-post-fill"></i></div>
-               <div>Max Expected Yield (kg)</div>
-               <div class="ms-auto"><label id="rmaxyield">0</label></div>
+               <div>Date</div>
+               <div class="ms-auto">
+                <h6 class="mb-0 text-success">
+                
+                <label id="earlyharvest">_</label></h6>
+              
+              </div>
+               
             </div>
             <div class="progress mt-2" style="height: 4px;">
               <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
           </div>
 
-
-          <div class="mb-0">
-            <div class="d-flex align-items-center gap-2">
-               <div class="fs-6 text-secondary"><i class="bi bi-file-post-fill"></i></div>
-               <div>Early Harvest Date</div>
-               <div class="ms-auto"><label id="rehdate1">0</label></div>
-               <p id="rehdate">0</p> </p>
-            </div>
-            <div class="progress mt-2" style="height: 4px;">
-              <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-          </div>
-
-
-          <div class="mb-0">
-            <div class="d-flex align-items-center gap-2">
-               <div class="fs-6 text-secondary"><i class="bi bi-file-post-fill"></i></div>
-               <div>Late Harvest Date</div>
-               <div class="ms-auto"><label id="rlhdate">0</label></div>
-            </div>
-            <div class="progress mt-2" style="height: 4px;">
-              <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-          </div>
-
-
-
-
-
-    
 
         </div>
       </div>
-
-
-
-     
-
-
-
-
-
-
-       
       </div>
-      
     </div>
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="col-12 col-xl-9">
       {% for pl in myFilter.qs %}
-
       <h2 class="font-weight-light text-center text-muted py-3">Recommendations for {{pl.valuechain}} - {{pl.release_name}}</h2>
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-4">
@@ -371,43 +412,7 @@
   <!--end row-->
 </main>
  <!--end page main-->
-   
- <script type="text/javascript">  
-  function myFunction(){  
-  var size=document.getElementById("farmsize").value; 
-  var minyield=document.getElementById("minyield").value; 
-  var maxyield=document.getElementById("maxyield").value; 
-  var pedate=document.getElementById("pedate").value; 
-  var ehdate=document.getElementById("ehdate").value; 
-  var lhdate=document.getElementById("lhdate").value; 
-
-  document.getElementById("rminyield").innerHTML = (size * minyield * 404.686).toFixed(2);
-  document.getElementById("rmaxyield").innerHTML = (size * maxyield * 404.686).toFixed(2);
-  //document.getElementById("rminyield").innerHTML = pedate;
-
-
-
-
-  const userEnteredString  = pedate; 
-  const dateFromUserEnteredString = new Date(userEnteredString);
-  const eharvestdate = dateFromUserEnteredString(myDate, ehdate);
-  const lharvestdate = dateFromUserEnteredString(myDate, lhdate);
-  
-  //const dt = eharvestdate.setDate(eharvestdate.getDate() + ehdate);
-
-
-  
-  document.getElementById("rehdate").innerHTML = pedate;
-  document.getElementById("rlhdate").innerHTML = pedate ;
-
-
-  
  
-
-
-  
-  }  
-  </script>  
 
 
 

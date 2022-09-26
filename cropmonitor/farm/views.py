@@ -1,3 +1,4 @@
+from operator import concat
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
@@ -20,22 +21,40 @@ import matplotlib.pyplot as plt
 from django.contrib.auth.decorators import login_required
 
 
+#Mapping
+import folium
+
+
 
 @login_required(login_url='login')
 def myfarms(request):
+  farms=MyFarm.objects.filter(owner=request.user)
   template = loader.get_template('farm/myfarms.html')
   context = {
+    "farms": farms
     
     
   }
   return HttpResponse(template.render(context, request))
 
 @login_required(login_url='login')
-def farmsummary(request):
+def farmsummary(request, slug):
+  selectedfarm=MyFarm.objects.filter(slug=slug).filter(owner=request.user).first()
+  latm='lat'
+  lonm='lon'
+  lat = getattr(selectedfarm, latm)
+  lon = getattr(selectedfarm, lonm)
+  
+  lonlat = " {} , {}".format(lon, lat)
+
+
+
+  
+
   template = loader.get_template('farm/farmsummary.html')
   
-  lat=0.4233
-  lon=35.2133
+ # lat=0.4233
+ # lon=35.2133
 
   # temperatureMin,temperatureMax,windSpeed,humidity,rainAccumulation,precipitationProbability,cloudCover,weatherCode&timesteps=1d&units=metric&apikey=$api_key
 
@@ -44,7 +63,7 @@ def farmsummary(request):
   url = "https://api.tomorrow.io/v4/timelines"
     
   querystring = {
-        "location":"35.2133, 0.4233",
+        "location":lonlat,
         "fields":["humidity", "cloudCover", "temperature", "temperatureMin", "temperatureMax", "windSpeed", "rainAccumulation", "precipitationProbability"],
         "units":"metric",
         "timesteps":"1d",
@@ -100,12 +119,27 @@ def farmsummary(request):
   wdata = []
   wdata = json.loads(json_records)
   context = {'wdata': wdata}
+
+
+  #Mapping
+  farmloc=[lat,lon]
+  map= folium.Map(location=[lat,lon], zoom_start=15)
+
+  folium.Marker(farmloc).add_to(map)
+  #folium.raster_layers.TileLayer('Stamen Terrain').add_to(map)
+  #folium.raster_layers.TileLayer('Stamen Toner').add_to(map)
+  #folium.raster_layers.TileLayer('Stamen Watercolor').add_to(map)
+  folium.LayerControl().add_to(map)
+  map = map._repr_html_()
     
   context = {
       
       "pdata_json":pdata_json,
       "pdata":pdata,
       "wdata":wdata,
+      "selectedfarm":selectedfarm,
+      'lat':lat,
+      'map':map,
 
      
 

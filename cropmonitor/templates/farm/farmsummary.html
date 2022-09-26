@@ -9,7 +9,7 @@
   <main class="page-content">
 
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-      <div class="breadcrumb-title pe-3">Nakuru Farm</div>
+      <div class="breadcrumb-title pe-3">Farm Name: {{selectedfarm.farm_name}}</div>
       <div class="ps-3">
           <nav aria-label="breadcrumb">
               <ol class="breadcrumb mb-0 p-0">
@@ -21,7 +21,7 @@
       </div>
       <div class="ms-auto">
         <div class="btn-group">
-          <button type="button" class="btn btn-success">More</button>
+          <button type="button" class="btn btn-success">Actions</button>
           <button type="button" class="btn btn-success split-bg-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">	<span class="visually-hidden">Toggle Dropdown</span>
           </button>
           <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-end">	<a class="dropdown-item" href="{% url 'ndvi' %}">NDVI</a>
@@ -43,11 +43,12 @@
       <div class="card-body">
           <div class="d-flex align-items-center">
               <div>
-                  <p class="mb-0 text-secondary">Number of value chains</p>
-                  <h4 class="my-1">2</h4>
-                  <p class="mb-0 font-13 text-success"><i class="bi bi-caret-up-fill"></i> Total 20 Acres</p>
+                  <p class="mb-0 text-secondary">Primary Value chain</p>
+                  <h4 class="my-1">{{selectedfarm.valuechain}}</h4>
+                  <p class="mb-0 font-13 text-success"><i class="bi bi-record-circle"></i> .
+                     </p>
               </div>
-              <div class="widget-icon-large bg-gradient-purple text-white ms-auto"><i class="bi bi-basket2-fill"></i>
+              <div class="widget-icon-large bg-gradient-success text-white ms-auto"><i class="bi bi-record-circle"></i>
               </div>
           </div>
       </div>
@@ -58,11 +59,11 @@
         <div class="card-body">
             <div class="d-flex align-items-center">
                 <div>
-                    <p class="mb-0 text-secondary">Feedback</p>
-                    <h4 class="my-1">1</h4>
-                    <p class="mb-0 font-13 text-success"><i class="bi bi-caret-up-fill"></i>1 enquires made last month</p>
+                    <p class="mb-0 text-secondary">Variety</p>
+                    <h4 class="my-1">{{selectedfarm.vc_variety}}</h4>
+                    <p class="mb-0 font-13 text-success"><i class="bi bi-record-fill"></i>.</p>
                 </div>
-                <div class="widget-icon-large bg-gradient-success text-white ms-auto"><i class="bi bi-currency-exchange"></i>
+                <div class="widget-icon-large bg-gradient-success text-white ms-auto"><i class="bi bi-record-fill"></i>
                 </div>
             </div>
         </div>
@@ -73,11 +74,11 @@
       <div class="card-body">
           <div class="d-flex align-items-center">
               <div>
-                  <p class="mb-0 text-secondary">Total Varieties</p>
-                  <h4 class="my-1">3</h4>
-                  <p class="mb-0 font-13 text-danger"><i class="bi bi-caret-down-fill"></i>KAT 3001, Ndengu tosha.. </p>
+                  <p class="mb-0 text-secondary">Farm Size</p>
+                  <h4 class="my-1">{{selectedfarm.farm_size_ha}} Acres</h4>
+                  <p class="mb-0 font-13 text-success"><i class="bi bi-bounding-box-circles"></i>. </p>
               </div>
-              <div class="widget-icon-large bg-gradient-danger text-white ms-auto"><i class="bi bi-people-fill"></i>
+              <div class="widget-icon-large bg-gradient-success text-white ms-auto"><i class="bi bi-bounding-box-circles"></i>
               </div>
           </div>
       </div>
@@ -88,58 +89,25 @@
 
 
     <div class="row">
-      <div class="col-12 col-lg-8 col-xl-8 d-flex">
+      <div class="col-12 col-lg-12 col-xl-12 d-flex">
         <div class="card mb-0 radius-10 border shadow-none w-100">
           <div class="card-body">
             <div class="col">
               <h5 class="mb-0">Farm Location </h5>
             </div>
 
-            <div class="" id="geographic-map"></div>
+
+
+
+            
+              <div> {{ map | safe }}</div>
+
+           
            </div>
           </div>
       </div>
 
-      <div class="col-12 col-lg-4 col-xl-4 d-flex">
-        <div class="card radius-10 w-100">
-          <div class="card-header bg-transparent">
-            <div class="row g-3 align-items-center">
-              <div class="col">
-                <h5 class="mb-0">Crops Grown </h5>
-              </div>
-              <div class="col">
-                <div class="d-flex align-items-center justify-content-end gap-3 cursor-pointer">
-                  <div class="dropdown">
-                    <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-horizontal-rounded font-22 text-option"></i>
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="javascript:;">Action</a>
-                      </li>
-                      <li><a class="dropdown-item" href="javascript:;">Another action</a>
-                      </li>
-                      <li>
-                        <hr class="dropdown-divider">
-                      </li>
-                      <li><a class="dropdown-item" href="javascript:;">Something else here</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-             </div>
-          </div>
-          <div class="card-body">
-            <div id="chart2"></div>
-          </div>
-          <ul class="list-group list-group-flush mb-0">
-            <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Finger millet<span class="badge bg-primary badge-pill">25%</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">Cassava<span class="badge bg-orange badge-pill">65%</span>
-            </li>
-            
-          </ul>
-        </div>
-      </div>
+     
     </div><!--end row-->
 
 
@@ -226,76 +194,6 @@
 
     </div>
 
-    <div class="card radius-10">
-      <div class="card-header bg-transparent">
-        <div class="row g-3 align-items-center">
-          <div class="col">
-            <h5 class="mb-0">Recent Activities</h5>
-          </div>
-          <div class="col">
-            <div class="d-flex align-items-center justify-content-end gap-3 cursor-pointer">
-              <div class="dropdown">
-                <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-horizontal-rounded font-22 text-option"></i>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="javascript:;">Action</a>
-                  </li>
-                  <li><a class="dropdown-item" href="javascript:;">Another action</a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li><a class="dropdown-item" href="javascript:;">Something else here</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-         </div>
-      </div>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table align-middle mb-0">
-            <thead class="table-light">
-              <tr>
-                <th>#ID</th>
-                <th>Activitie Name</th>
-                <th>Value Chain</th>
-                <th>Description</th>
-                <th>Date</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>#89742</td>
-                <td>
-                  <div class="d-flex align-items-center gap-3">
-                    <div class="product-box border">
-                       <img src="assets/images/products/11.png" alt="">
-                    </div>
-                    <div class="product-info">
-                      <h6 class="product-name mb-1">Planting</h6>
-                    </div>
-                  </div>
-                </td>
-                <td>Finger millet</td>
-                <td>Little rainfall rceieved </td>
-                <td>Apr 8, 2021</td>
-                <td>
-                  <div class="d-flex align-items-center gap-3 fs-6">
-                    <a href="javascript:;" class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="View detail" aria-label="Views"><i class="bi bi-eye-fill"></i></a>
-                    <a href="javascript:;" class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Edit info" aria-label="Edit"><i class="bi bi-pencil-fill"></i></a>
-                    <a href="javascript:;" class="text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="" data-bs-original-title="Delete" aria-label="Delete"><i class="bi bi-trash-fill"></i></a>
-                  </div>
-                </td>
-              </tr>
-              
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
 
     
   </main>
