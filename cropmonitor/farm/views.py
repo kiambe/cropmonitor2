@@ -34,6 +34,10 @@ import folium
 def myfarms(request):
   farms=MyFarm.objects.filter(owner=request.user)
   template = loader.get_template('farm/myfarms.html')
+
+  # add the dictionary during initialization
+  
+  
   context = {
     "farms": farms
     
@@ -232,17 +236,22 @@ def registerfarm(request):
     # dictionary for initial data with
     # field names as keys
     context ={}
+    farmform = RegisterFarmForm(request.POST or None)
+    if request.method=='POST':
  
     # add the dictionary during initialization
-    farmform = RegisterFarmForm(request.POST or None)
-    if farmform.is_valid():
-        farmform.save()
+      farmform = RegisterFarmForm(request.POST or None)
+      if farmform.is_valid():
+        farm=farmform.save(commit=False)
          
     #context['form']= form
+        farm = farmform.save(commit=False)
+        farm.owner = request.user
+        farm.save()
     
     farms=MyFarm.objects.filter(owner=request.user)
-    ##context ={'form':form, 'farms': farms}
-    context ={'farmform':farmform}
+    context ={'farmform':farmform, 'farms': farms}
+    #context ={'farmform':farmform}
     template = loader.get_template('farm/myfarms.html')
-    #return HttpResponse(template.render(context, request))
-    return render(request, 'farm/myfarms.html', context)
+    return HttpResponse(template.render(context, request))
+    #return render(request, 'farm/myfarms.html', context)
