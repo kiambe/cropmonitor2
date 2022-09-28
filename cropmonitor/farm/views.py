@@ -55,12 +55,8 @@ def myfarms(request):
   if request.method=='POST':
     #farm_name=request.POST['farm_name'] 
     farm_name=request.POST.get('farm_name')
-    #farm_name =slugify(farm_name) 
+    slugname =slugify(farm_name) 
 
-   # newfarm=MyFarm()
-   ## newfarm.owner= request.user
-   # newfarm.farm_name=request.POST.get('farm_name')
-   # newfarm.slug=farm_name
     
     vc_variety=request.POST.get('vc_variety')
     valuechain=request.POST.get('valuechain')
@@ -93,15 +89,12 @@ def myfarms(request):
                               county=county,
                               vc_variety=vc_variety,
                               subcounty=subcounty,
-                              ward=ward
+                              ward=ward,
+                              slug=slugname
                               
                               
                               )
-    #farm.save
     
-    #farm=None
-    #farm = farm.save(commit=False)
-    #farm.owner = request.user
     farm.save()
     messages.success(request,'Data has been submitted')
     
