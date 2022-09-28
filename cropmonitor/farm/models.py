@@ -81,6 +81,4 @@ class MyFarm(models.Model):
   class Meta:
         ordering = ['-owner']
 
-  def __str__(self):
-        return self.farm_name
 
