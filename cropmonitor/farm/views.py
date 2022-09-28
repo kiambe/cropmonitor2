@@ -22,11 +22,13 @@ from django.contrib.auth.decorators import login_required
 from slugify import slugify
 
 from django.views import View
-from .forms import RegisterFarmForm
+from .forms import RegisterFarmForm, form_validation_error
 from django.contrib import messages
 
 #Mapping
 import folium
+from geopy.geocoders import Nominatim
+
 
 
 
@@ -34,6 +36,45 @@ import folium
 def myfarms(request):
   farms=MyFarm.objects.filter(owner=request.user)
   template = loader.get_template('farm/myfarms.html')
+
+    # calling the Nominatim tool
+  loc = Nominatim(user_agent="GetLoc")
+ 
+# entering the location name
+  getLoc = loc.geocode("Gosainganj Lucknow")
+ 
+# printing address
+  #print(getLoc.address)
+ 
+# printing latitude and longitude
+  #print("Latitude = ", getLoc.latitude, "\n")
+  #print("Longitude = ", getLoc.longitude)
+  clat = getLoc.latitude
+  clon=getLoc.longitude
+  form = RegisterFarmForm(request.POST or None)
+  if request.method=='POST':
+    #farm_name=request.POST['farm_name'] 
+    farm_name=request.POST.get('farm_name')
+    #farm_name =slugify(farm_name) 
+
+   # newfarm=MyFarm()
+   ## newfarm.owner= request.user
+   # newfarm.farm_name=request.POST.get('farm_name')
+   # newfarm.slug=farm_name
+    
+    vc_variety=request.POST.get('vc_variety')
+    farm_ownership=request.POST.get('farm_ownership')
+    county=request.POST.get('county')
+    subcounty=request.POST.get('subcounty')
+    ward=request.POST.get('ward')
+    lat=request.POST.get('lat')
+    lon=request.POST.get('lon')
+    farm_size_ha=request.POST.get('farm_size_ha')
+    #newfarm.save()
+    farm=MyFarm.objects.create(farm_name=farm_name,owner=request.user)
+    farm.save
+    messages.success(request,'Data has been submitted')
+    
 
   # add the dictionary during initialization
   
@@ -159,37 +200,55 @@ def farmsummary(request, slug):
 
 
 @login_required(login_url='login')
-def registerfarm2(request):
+def registerfarm(request):
+  # calling the Nominatim tool
+  loc = Nominatim(user_agent="GetLoc")
+ 
+# entering the location name
+  getLoc = loc.geocode("Gosainganj Lucknow")
+ 
+# printing address
+  #print(getLoc.address)
+ 
+# printing latitude and longitude
+  #print("Latitude = ", getLoc.latitude, "\n")
+  #print("Longitude = ", getLoc.longitude)
+  clat = getLoc.latitude
+  clon=getLoc.longitude
+  form = RegisterFarmForm(request.POST or None)
   if request.method=='POST':
-    farm_name=request.POST['farm_name'] 
-    """farm_name=request.POST.get('farm_name')
-    farm_name =slugify(farm_name) 
+    #farm_name=request.POST['farm_name'] 
+    farm_name=request.POST.get('farm_name')
+    #farm_name =slugify(farm_name) 
 
-    newfarm=MyFarm()
-    newfarm.owner= request.user
-    newfarm.farm_name=request.POST.get('farm_name')
-    newfarm.slug=farm_name
+   # newfarm=MyFarm()
+   ## newfarm.owner= request.user
+   # newfarm.farm_name=request.POST.get('farm_name')
+   # newfarm.slug=farm_name
     
-    newfarm.vc_variety=request.POST.get('vc_variety')
-    newfarm.farm_ownership=request.POST.get('farm_ownership')
-    newfarm.county=request.POST.get('county')
-    newfarm.subcounty=request.POST.get('subcounty')
-    newfarm.ward=request.POST.get('ward')
-    newfarm.lat=request.POST.get('lat')
-    newfarm.lon=request.POST.get('lon')
-    newfarm.farm_size_ha=request.POST.get('farm_size_ha')
-    newfarm.save()"""
+    vc_variety=request.POST.get('vc_variety')
+    farm_ownership=request.POST.get('farm_ownership')
+    county=request.POST.get('county')
+    subcounty=request.POST.get('subcounty')
+    ward=request.POST.get('ward')
+    lat=request.POST.get('lat')
+    lon=request.POST.get('lon')
+    farm_size_ha=request.POST.get('farm_size_ha')
+    #newfarm.save()
     farm=MyFarm.objects.create(farm_name=farm_name,owner=request.user)
+    farm.save
     messages.success(request,'Data has been submitted')
+    
 
   farms=MyFarm.objects.filter(owner=request.user)
   template = loader.get_template('farm/myfarms.html')
   context = {
-    "farms": farms
+    "farms": farms,"form": form, "clat":clat, "clon":clon,
     
     
   }
-  return HttpResponse(template.render(context, request))
+  #return HttpResponse(template.render(context, request))
+  return redirect('myfarms')
 
 '''
 @login_required(login_url='login')
@@ -232,7 +291,7 @@ def contact(request):
 
 
 @login_required(login_url='login')
-def registerfarm(request):
+def registerfarm2(request):
     # dictionary for initial data with
     # field names as keys
     context ={}
@@ -255,3 +314,51 @@ def registerfarm(request):
     template = loader.get_template('farm/myfarms.html')
     return HttpResponse(template.render(context, request))
     #return render(request, 'farm/myfarms.html', context)
+
+
+
+@login_required(login_url='login')
+def emp(request):  
+    if request.method == "POST":  
+        form = RegisterFarmForm(request.POST)  
+        if form.is_valid():  
+            try:  
+                form.save()  
+                return redirect('farm/myfarms.html')  
+            except:  
+                pass  
+    else:  
+        form = RegisterFarmForm()  
+    return render(request,'farm/myfarms.html',{'form':form})  
+
+
+
+class RegisterFarmView(View):
+    farm = None
+
+    
+
+    def get(self, request):
+        #context = {'farm': self.farm, 'segment': 'farm'}
+        farms=MyFarm.objects.filter(owner=request.user)
+        farmform = RegisterFarmForm(request.POST, request.FILES, instance=self.farm)
+        context ={'farmform':farmform, 'farms': farms}
+        return render(request, 'farm/myfarms.html', context)
+
+    def post(self, request):
+        form = RegisterFarmForm(request.POST, request.FILES, instance=self.farm)
+
+        if form.is_valid():
+            farm = form.save()
+            farm.owner = request.user
+            farm.save()
+            #profile.user.first_name = form.cleaned_data.get('first_name')
+            #profile.user.last_name = form.cleaned_data.get('last_name')
+            #profile.user.email = form.cleaned_data.get('email')
+            #profile.user.save()
+
+            messages.success(request, 'Profile saved successfully')
+        else:
+            messages.error(request, form_validation_error(form))
+        return redirect('farm/myfarms.html')
+

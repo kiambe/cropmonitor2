@@ -21,7 +21,9 @@ from . import views
 urlpatterns = [
     path('', views.myfarms, name="myfarms"),
     path('farmsummary/<slug:slug>', views.farmsummary, name="farmdetails"),
-    #path('registerfarm/', views.FarmView.as_view(), name='registerfarm'),
-    path('registerfarm/', views.registerfarm, name="registerfarm"),
+    path('registerfarm/', views.RegisterFarmView.as_view(), name='registerfarm'),
+    #path('registerfarm/', views.registerfarm, name="registerfarm"),
+    path('emp/', views.emp, name="emp"),
+
     
 ]

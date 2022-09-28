@@ -53,38 +53,34 @@ class MyFarm(models.Model):
     )  
   owner = models.ForeignKey(
     User, 
-    on_delete=models.CASCADE, related_name='my_farms'
+    on_delete=models.CASCADE, related_name='my_farms', null = True, blank = True 
     )
   farm_ownership = models.ForeignKey(
     FarmOwnership, 
-    on_delete=models.CASCADE, 
-    null=False
+    on_delete=models.CASCADE, null = True, blank = True
     ) 
   county = models.ForeignKey(
     County, 
-    on_delete=models.CASCADE,
-    null=False
+    on_delete=models.CASCADE, null = True, blank = True
     )
   subcounty = models.ForeignKey(
     SubCounty, 
-    on_delete=models.CASCADE,
-    null=False
+    on_delete=models.CASCADE, null = True, blank = True
     )
   ward = models.ForeignKey(
     Ward, 
-    on_delete=models.CASCADE,
-    null=False
+    on_delete=models.CASCADE, null = True, blank = True
     )
   lat = models.FloatField(max_length=20, null=True, blank=True)
   lon = models.FloatField(max_length=20, null=True, blank=True)
   farm_size_ha = models.FloatField(max_length=20, null=True, blank=True)
   date_created = models.DateTimeField(auto_now_add=True)
   date_updated = models.DateTimeField(auto_now=True)
-  status = models.IntegerField(choices=STATUS, default=0)
+  status = models.IntegerField(choices=STATUS, default=0, null = True, blank = True)
 
   class Meta:
-        ordering = ['-date_created']
+        ordering = ['-owner']
 
   def __str__(self):
-        return self.farm_name
+        return self.slug
 

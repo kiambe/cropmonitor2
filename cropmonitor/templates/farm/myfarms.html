@@ -102,10 +102,75 @@
                             </div>
                          </div>
                          {% endfor %}
+
                         
                      
                      
                    </div><!--end row-->
+                   <p >&nbsp;</p>
+<hr><p >&nbsp;</p>
+                     <div class="row" id="registernewfarm">
+                        <div class="col-12 col-xl-12">
+                            <div class="card card-body bg-white border-light shadow-sm mb-4">
+                                <h2 class="h5 mb-4">Register New Farm</h2>
+
+                   <form method="POST" class="post-form" action="{% url 'myfarms'%}">  
+                    {% csrf_token %}  
+                <div class="container">  
+            <br>  
+               
+              <div class="form-group row">  
+                <label class="col-sm-2 col-form-label">Farm Name:</label>  
+                <div class="col-sm-4">  
+                 <input type="text"  name="farm_name">
+                </div>  
+              </div>  
+                <div class="form-group row">  
+                <label class="col-sm-2 col-form-label">Farm Size (Acres):</label>  
+                <div class="col-sm-4">  
+                  <input type="text"  name="farm_size_ha">
+                </div>  
+              </div>  
+                <div class="form-group row">  
+                <label class="col-sm-2 col-form-label">Primary Value Chain:</label>  
+                <div class="col-sm-4">  
+                  <input type="text"  name="valuechain">
+                </div>  
+              </div>  
+              <div class="form-group row">  
+                <label class="col-sm-2 col-form-label">Latitude:</label>  
+                <div class="col-sm-4">  
+                  <input type="text"  name="lat">
+                </div>  
+              </div> 
+              <div class="form-group row">  
+                <label class="col-sm-2 col-form-label">Longitude:</label>  
+                <div class="col-sm-4">  
+                  <input type="text"  name="lon">
+                </div>  
+              </div> 
+                <div class="form-group row">  
+                <label class="col-sm-1 col-form-label"></label>  
+                <div class="col-sm-4">  
+                <button type="submit" class="btn btn-primary">Submit</button>  
+                </div>  
+              </div>  
+                </div>  
+            </form> 
+
+          </div>
+        </div>
+     </div>      
+                   
+
+
+
+
+
+
+
+
+
                        
                      </div>
                    </div>
