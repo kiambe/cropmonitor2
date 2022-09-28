@@ -1,2 +1,34 @@
+pip install django
 pip install awesome-slugify
 pip install django-crispy-forms
+pip install --upgrade django-crispy-forms
+pip install geopy
+pip install awesome-slugify
+pip install folium
+pip install nltk
+pip install django-widget-tweaks
+pip install django-filter
+pip install djangorestframework
+pip install django-import-export
+pip install earthengine-api --upgrade
+
+
+python manage.py collectstatic
+django-admin makemessages --all --ignore=env
+django-admin compilemessages --ignore=env
+xgettext --version
+
+
+asgiref==3.5.2
+certifi==2022.6.15.1
+charset-normalizer==2.1.1
+Django==4.1.1
+django-filter==22.1
+djangorestframework==3.13.1
+idna==3.3
+Markdown==3.4.1
+pytz==2022.2.1
+requests==2.28.1
+sqlparse==0.4.2
+tzdata==2022.2
+urllib3==1.26.12

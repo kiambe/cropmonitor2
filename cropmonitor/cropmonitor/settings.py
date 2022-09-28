@@ -187,5 +187,5 @@ EMAIL_PORT=587
 EMAIL_USE_TLS=True
 ####################collage email id ##############
 EMAIL_HOST_USER="kevinkiambe@gmail.com"
-EMAIL_HOST_PASSWORD="xtremeGmail@1000"
+EMAIL_HOST_PASSWORD=""
 ##################################################
