@@ -1,1 +1,2 @@
 pip install awesome-slugify
+pip install django-crispy-forms

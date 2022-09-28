@@ -63,6 +63,7 @@ def myfarms(request):
    # newfarm.slug=farm_name
     
     vc_variety=request.POST.get('vc_variety')
+    valuechain=request.POST.get('valuechain')
     farm_ownership=request.POST.get('farm_ownership')
     county=request.POST.get('county')
     subcounty=request.POST.get('subcounty')
@@ -71,8 +72,37 @@ def myfarms(request):
     lon=request.POST.get('lon')
     farm_size_ha=request.POST.get('farm_size_ha')
     #newfarm.save()
-    farm=MyFarm.objects.create(farm_name=farm_name,owner=request.user)
-    farm.save
+    valuechain=ValueChain.objects.get(id = valuechain)
+    vc_variety=ValueChainVariety.objects.get(id = vc_variety)
+    farm_ownership=FarmOwnership.objects.get(id = farm_ownership)
+    county=County.objects.get(id = county)
+    subcounty=SubCounty.objects.get(id = subcounty)
+    ward=Ward.objects.get(id = ward)
+
+
+
+
+
+    farm=MyFarm.objects.create(farm_name=farm_name,
+                              owner=request.user, 
+                              farm_size_ha=farm_size_ha, 
+                              lat=lat, 
+                              lon=lon, 
+                              valuechain=valuechain, 
+                              farm_ownership=farm_ownership,
+                              county=county,
+                              vc_variety=vc_variety,
+                              subcounty=subcounty,
+                              ward=ward
+                              
+                              
+                              )
+    #farm.save
+    
+    #farm=None
+    #farm = farm.save(commit=False)
+    #farm.owner = request.user
+    farm.save()
     messages.success(request,'Data has been submitted')
     
 
@@ -80,7 +110,7 @@ def myfarms(request):
   
   
   context = {
-    "farms": farms
+    "farms": farms, "clat": clat, "clon":clon, "form":form
     
     
   }

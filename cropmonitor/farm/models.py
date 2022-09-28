@@ -82,5 +82,5 @@ class MyFarm(models.Model):
         ordering = ['-owner']
 
   def __str__(self):
-        return self.slug
+        return self.farm_name
 
